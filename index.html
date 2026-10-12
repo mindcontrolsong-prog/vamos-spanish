@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vamos! 스페인어 - 초급 매일 학습</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-color: #121316;
+      --card-bg: #1c1e26;
+      --card-inner: #252833;
+      --accent-red: #e74c3c;
+      --accent-red-hover: #c0392b;
+      --accent-yellow: #f1c40f;
+      --accent-yellow-hover: #f39c12;
+      --text-main: #f1f3f9;
+      --text-muted: #8e94a5;
+      --text-dim: #5c6275;
+      --border-color: #2e3240;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 0;
+      line-height: 1.5;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 500px;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-height: 100vh;
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Header */
+    header {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(18, 19, 22, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-yellow));
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #121316;
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      background: linear-gradient(90deg, #fff, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .day-selector-select {
+      background-color: var(--card-inner);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .streak-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(241, 196, 15, 0.12);
+      border: 1px solid rgba(241, 196, 15, 0.3);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-yellow);
+      cursor: pointer;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-bottom: 90px;
+    }
+
+    /* Step Navigation Bar */
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      background-color: var(--card-bg);
+      padding: 6px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      gap: 4px;
+    }
+
+    .step-item {
+      flex: 1;
+      text-align: center;
+      padding: 8px 2px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      z-index: 1;
+    }
+
+    .step-item.active {
+      color: #fff;
+      background: var(--card-inner);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .step-num {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+    }
+
+    .step-item.active .step-num {
+      background-color: var(--accent-red);
+      color: #fff;
+    }
+
+    .step-item.calendar-tab {
+      color: var(--accent-yellow);
+    }
+    .step-item.calendar-tab.active {
+      background: rgba(241, 196, 15, 0.15);
+      border: 1px solid rgba(241, 196, 15, 0.3);
+    }
+
+    /* Card Panels */
+    .step-panel {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step-panel.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title i {
+      color: var(--accent-yellow);
+    }
+
+    /* Info Banners */
+    .info-banner {
+      background-color: var(--card-inner);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border-left: 4px solid var(--accent-yellow);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .info-banner.tip-banner {
+      border-left-color: var(--accent-red);
+      background: linear-gradient(135deg, var(--card-inner), rgba(231, 76, 60, 0.08));
+    }
+
+    .info-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-yellow);
+    }
+
+    .tip-banner .info-title {
+      color: var(--accent-red);
+    }
+
+    .info-desc {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    /* Step 2 Pattern Extension Box */
+    .pattern-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background-color: var(--card-inner);
+      padding: 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .pattern-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background-color: var(--card-bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .pattern-text-es {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--accent-yellow);
+    }
+
+    .pattern-text-ko {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Dialogue List */
+    .dialogue-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dialogue-unit {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background-color: var(--card-inner);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .dialogue-unit.highlight {
+      border: 1px solid rgba(231, 76, 60, 0.4);
+      background: linear-gradient(135deg, var(--card-inner), rgba(231, 76, 60, 0.08));
+    }
+
+    .speaker-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 6px;
+      width: fit-content;
+    }
+
+    .speaker-a {
+      background-color: rgba(231, 76, 60, 0.2);
+      color: var(--accent-red);
+    }
+
+    .speaker-b {
+      background-color: rgba(241, 196, 15, 0.2);
+      color: var(--accent-yellow);
+    }
+
+    .es-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+
+    .ko-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* Vocab & Phrase Grid */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .vocab-card-item {
+      background-color: var(--card-inner);
+      border: 1px solid var(--border-color);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .vocab-card-item.phrase {
+      border-color: rgba(241, 196, 15, 0.4);
+      background: linear-gradient(135deg, var(--card-inner), rgba(241, 196, 15, 0.06));
+    }
+
+    .vocab-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .vocab-es-text {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--accent-yellow);
+    }
+
+    .vocab-card-item.phrase .vocab-es-text {
+      color: var(--accent-red);
+    }
+
+    .vocab-ko-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Blur Effect */
+    .blurred-content {
+      filter: blur(8px);
+      user-select: none;
+      transition: filter 0.4s ease;
+    }
+
+    .blurred-content.revealed {
+      filter: blur(0);
+      user-select: text;
+    }
+
+    .reveal-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--card-inner);
+      border: 1px dashed var(--border-color);
+      color: var(--text-muted);
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    /* Audio Player */
+    .audio-player-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: linear-gradient(180deg, var(--card-inner) 0%, rgba(37, 40, 51, 0.5) 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+    }
+
+    .play-main-btn {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-red-hover));
+      border: none;
+      color: #fff;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+      transition: var(--transition);
+    }
+
+    .play-main-btn:active {
+      transform: scale(0.95);
+    }
+
+    .speed-toggle {
+      display: flex;
+      gap: 8px;
+      background-color: var(--bg-color);
+      padding: 4px;
+      border-radius: 20px;
+    }
+
+    .speed-btn {
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      border-radius: 16px;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    .speed-btn.active {
+      background-color: var(--card-inner);
+      color: var(--accent-yellow);
+    }
+
+    /* Controls */
+    .line-practice-item {
+      background-color: var(--card-inner);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .line-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background-color: var(--card-bg);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .btn-circle:hover {
+      background-color: var(--accent-yellow);
+      color: #121316;
+    }
+
+    .btn-mic {
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-red-hover));
+      color: #fff;
+    }
+
+    .btn-mic.recording {
+      animation: pulse 1.2s infinite;
+      background: #e74c3c;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6); }
+      70% { box-shadow: 0 0 0 12px rgba(231, 76, 60, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+    }
+
+    .speech-result {
+      font-size: 0.85rem;
+      color: var(--accent-yellow);
+      font-weight: 600;
+      min-height: 20px;
+    }
+
+    /* Puzzle */
+    .puzzle-area {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .puzzle-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .word-pool, .target-dropzone {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 56px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+    }
+
+    .target-dropzone {
+      background-color: var(--card-inner);
+      border: 2px dashed var(--border-color);
+      align-items: center;
+    }
+
+    .word-pool {
+      background-color: rgba(0, 0, 0, 0.2);
+      justify-content: center;
+    }
+
+    .word-chip {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .word-chip.selected {
+      background-color: var(--accent-yellow);
+      color: #121316;
+      border-color: var(--accent-yellow);
+    }
+
+    .feedback-box {
+      text-align: center;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .feedback-box.correct {
+      display: block;
+      background-color: rgba(46, 204, 113, 0.15);
+      color: #2ecc71;
+      border: 1px solid rgba(46, 204, 113, 0.3);
+    }
+
+    .feedback-box.wrong {
+      display: block;
+      background-color: rgba(231, 76, 60, 0.15);
+      color: #e74c3c;
+      border: 1px solid rgba(231, 76, 60, 0.3);
+    }
+
+    /* Calendar */
+    .calendar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background-color: var(--card-inner);
+      padding: 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+
+    .calendar-day-head {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      padding-bottom: 6px;
+    }
+
+    .calendar-cell {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      background-color: var(--card-bg);
+      color: var(--text-muted);
+      position: relative;
+    }
+
+    .calendar-cell.today {
+      border: 2px solid var(--accent-yellow);
+      color: var(--accent-yellow);
+      font-weight: 800;
+    }
+
+    .calendar-cell.stamped::after {
+      content: "🔥";
+      font-size: 0.85rem;
+      position: absolute;
+      bottom: 2px;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-red-hover));
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 6px 16px rgba(231, 76, 60, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--card-inner);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal-card {
+      background-color: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      width: 100%;
+      max-width: 400px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">V</div>
+        <div class="brand-title">Vamos! 스페인어</div>
+      </div>
+      <div class="header-actions">
+        <select id="daySelect" class="day-selector-select" onchange="changeDay(this.value)"></select>
+        <div class="streak-badge" onclick="openCalendarModal()">
+          <i class="fa-solid fa-fire"></i> <span id="streakCount">1</span>일
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <nav class="step-nav">
+        <div class="step-item active" onclick="switchStep(1)" id="stepTab1">
+          <div class="step-num">1</div>
+          <span>듣기</span>
+        </div>
+        <div class="step-item" onclick="switchStep(2)" id="stepTab2">
+          <div class="step-num">2</div>
+          <span>원리/응용</span>
+        </div>
+        <div class="step-item" onclick="switchStep(3)" id="stepTab3">
+          <div class="step-num">3</div>
+          <span>꿀팁/단어</span>
+        </div>
+        <div class="step-item" onclick="switchStep(4)" id="stepTab4">
+          <div class="step-num">4</div>
+          <span>말하기</span>
+        </div>
+        <div class="step-item" onclick="switchStep(5)" id="stepTab5">
+          <div class="step-num">5</div>
+          <span>받아쓰기</span>
+        </div>
+        <div class="step-item calendar-tab" onclick="switchStep(6)" id="stepTab6">
+          <i class="fa-solid fa-calendar-check" style="font-size:0.85rem;"></i>
+          <span>출석부</span>
+        </div>
+      </nav>
+
+      <!-- STEP 1: 귀로 먼저 듣기 -->
+      <section class="step-panel active" id="stepPanel1">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-ear-listen"></i> Step 1. 귀로 먼저 듣기</div>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">글자를 보기 전에 먼저 소리에만 집중하여 들어보세요!</p>
+          <div class="audio-player-box">
+            <button class="play-main-btn" onclick="playFullDialogue()"><i class="fa-solid fa-play"></i></button>
+            <div class="speed-toggle">
+              <button class="speed-btn active" onclick="setSpeed(1.0, this)">1.0x</button>
+              <button class="speed-btn" onclick="setSpeed(0.8, this)">0.8x</button>
+            </div>
+          </div>
+          <div class="dialogue-container blurred-content" id="blurredDialogueBox"></div>
+          <button class="reveal-btn" onclick="toggleBlur()"><i class="fa-solid fa-eye"></i> 스크립트 공개하기</button>
+        </div>
+        <button class="btn-primary" onclick="switchStep(2)">핵심 원리 배우기 <i class="fa-solid fa-arrow-right"></i></button>
+      </section>
+
+      <!-- STEP 2: 핵심 원리 & 패턴 확장 (새로운 핵심 메인 스테이지) -->
+      <section class="step-panel" id="stepPanel2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-book-open-reader"></i> Step 2. 핵심 원리 & 패턴 응용</div>
+          </div>
+
+          <!-- Grammar Principle Concept Box -->
+          <div class="info-banner">
+            <div class="info-title"><i class="fa-solid fa-brain"></i> 오늘의 핵심 문법 원리</div>
+            <div class="info-desc" id="step2ConceptText"></div>
+          </div>
+
+          <!-- 1-Sec Tip Banner -->
+          <div class="info-banner tip-banner">
+            <div class="info-title"><i class="fa-solid fa-bolt"></i> 1초 핵심 꿀팁</div>
+            <div class="info-desc" id="step2TipText"></div>
+          </div>
+
+          <!-- Pattern Extension List -->
+          <div style="font-size:0.9rem; font-weight:700; color:var(--text-main); margin-top:4px;">
+            🔄 나만의 문장으로 넓히는 응용 패턴
+          </div>
+          <div class="pattern-box" id="step2PatternList"></div>
+        </div>
+
+        <button class="btn-primary" onclick="switchStep(3)">꿀팁 & 단어 공부하기 <i class="fa-solid fa-arrow-right"></i></button>
+      </section>
+
+      <!-- STEP 3: 꿀팁 & 단어/통구문 -->
+      <section class="step-panel" id="stepPanel3">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-cubes"></i> Step 3. 대화 속 핵심 표현 & 단어</div>
+          </div>
+          
+          <div class="info-banner">
+            <div class="info-title"><i class="fa-solid fa-comments"></i> 대화 속 핵심 원리 다지기</div>
+            <div class="info-desc" id="step3ContextSummary"></div>
+          </div>
+
+          <div style="font-size:0.9rem; font-weight:700; color:var(--text-main); margin-top:6px;">📌 오늘 대화의 주요 단어 & 통구문 칩</div>
+          <div class="vocab-grid" id="step3VocabList"></div>
+        </div>
+        <button class="btn-primary" onclick="switchStep(4)">말하기 연습 시작 <i class="fa-solid fa-arrow-right"></i></button>
+      </section>
+
+      <!-- STEP 4: 문장 따라 말하기 -->
+      <section class="step-panel" id="stepPanel4">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-microphone"></i> Step 4. 따라 말하기</div>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-muted);">각 문장의 [듣기] 버튼을 누르고 따라 해보세요. 마이크 버튼으로 발음도 테스트할 수 있습니다!</p>
+          <div id="linePracticeContainer" style="display: flex; flex-direction: column; gap: 14px;"></div>
+        </div>
+        <button class="btn-primary" onclick="switchStep(5)">받아쓰기 퀴즈 도전 <i class="fa-solid fa-arrow-right"></i></button>
+      </section>
+
+      <!-- STEP 5: 받아쓰기 퍼즐 -->
+      <section class="step-panel" id="stepPanel5">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-puzzle-piece"></i> Step 5. 단어 블록 퍼즐</div>
+          </div>
+          <div class="puzzle-area">
+            <div class="puzzle-progress">
+              <span>문장 완성하기 (<span id="puzzleCurrentIndex">1</span>/<span id="puzzleTotalIndex">3</span>)</span>
+              <button class="btn-circle" style="width:30px; height:30px;" onclick="playPuzzleLineAudio()"><i class="fa-solid fa-volume-high"></i></button>
+            </div>
+            <div style="font-size:0.95rem; color: var(--text-muted);" id="puzzleKoreanHint"></div>
+            <div class="target-dropzone" id="targetDropzone"></div>
+            <div class="feedback-box" id="puzzleFeedback"></div>
+            <div class="word-pool" id="wordPool"></div>
+            <div style="display:flex; gap:10px;">
+              <button class="btn-secondary" style="flex:1;" onclick="resetPuzzleLine()">다시 풀기</button>
+              <button class="btn-primary" style="flex:2;" onclick="checkPuzzleAnswer()">정답 확인</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INDEPENDENT CALENDAR: 출석부 -->
+      <section class="step-panel" id="stepPanel6">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fa-solid fa-calendar-check"></i> 나의 학습 출석부</div>
+          </div>
+          <div style="text-align: center; padding: 10px 0;">
+            <i class="fa-solid fa-circle-check" style="font-size: 3.5rem; color: var(--accent-yellow); margin-bottom: 12px;"></i>
+            <h3 style="font-size: 1.3rem; font-weight: 800;">¡Excelente! 오늘 학습 완료!</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">오늘의 목표 문장을 완벽하게 Master 하셨습니다!</p>
+          </div>
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <span id="calendarMonthLabel">2026년 10월</span>
+              <div style="display:flex; gap:6px;">
+                <button class="btn-circle" style="width:28px; height:28px;" onclick="changeMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="btn-circle" style="width:28px; height:28px;" onclick="changeMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+          </div>
+          <button class="btn-primary" onclick="markAttendanceToday()"><i class="fa-solid fa-stamp"></i> 오늘 출석 도장 찍기</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="calendarModal">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="font-size:1.1rem; font-weight:800;">🔥 나의 연속 학습 현황</h3>
+        <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:1.2rem;" onclick="closeCalendarModal()"></i>
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; text-align:center;">
+        <div style="background:var(--card-inner); padding:16px; border-radius:var(--radius-md);">
+          <div style="font-size:0.8rem; color:var(--text-muted);">연속 학습일</div>
+          <div style="font-size:1.5rem; font-weight:800; color: var(--accent-red);" id="modalStreakCount">1일</div>
+        </div>
+        <div style="background:var(--card-inner); padding:16px; border-radius:var(--radius-md);">
+          <div style="font-size:0.8rem; color:var(--text-muted);">총 출석일</div>
+          <div style="font-size:1.5rem; font-weight:800; color: var(--accent-yellow);" id="modalTotalDays">1일</div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="closeCalendarModal()">확인</button>
+    </div>
+  </div>
+
+  <script>
+    // Complete 30-Day Curriculum Database
+    const lessonsData = {
+      1: {
+        title: "Yo soy Carmen.",
+        concept: "스페인어에서 자기소개를 하거나 본질적인 이름/신분을 말할 때는 <b>ser (~이다)</b> 동사를 사용합니다. 대표적으로 <b>Yo soy ~</b> 패턴을 쓰게 됩니다.",
+        tip: "스페인어는 동사 모양(<b>soy</b>)만 봐도 주어가 '나(Yo)'임을 알 수 있어서 <b>Yo</b>를 생략하고 그냥 <b>Soy Carmen</b>이라고도 자주 말합니다!",
+        patterns: [
+          { es: "Yo soy Carmen.", ko: "나는 카르멘이야. (이름)" },
+          { es: "Yo soy Minsu.", ko: "나는 민수야. (이름)" },
+          { es: "Yo soy coreano.", ko: "나는 한국인(남성)이야. (국적)" },
+          { es: "Yo soy estudiante.", ko: "나는 학생이야. (신분)" }
+        ],
+        dialogue: [
+          { speaker: "A", es: "¿Cómo te llamas?", ko: "너 이름이 뭐니?" },
+          { speaker: "B", es: "Yo soy Carmen. ¿Y tú?", ko: "나는 카르멘이야. 너는?", target: true },
+          { speaker: "A", es: "Yo soy Minsu.", ko: "나는 민수야." }
+        ],
+        items: [
+          { es: "Yo soy ~", ko: "나는 ~이다 (통구문)", isPhrase: true },
+          { es: "¿Cómo te llamas?", ko: "이름이 뭐니? (통구문)", isPhrase: true },
+          { es: "¿Y tú?", ko: "너는? (통구문)", isPhrase: true },
+          { es: "Cómo", ko: "어떻게" },
+          { es: "llamas", ko: "부르다" },
+          { es: "soy", ko: "~이다 (ser동사)" }
+        ]
+      },
+      2: {
+        title: "Estoy bien, gracias.",
+        concept: "기분이나 건강 상태, 일시적인 컨디션을 말할 때는 ser가 아닌 <b>estar (~한 상태이다)</b> 동사를 사용합니다. '나 잘 지내'는 <b>Estoy bien</b>입니다.",
+        tip: "<b>estás</b>는 '너'의 상태를 물을 때, <b>estoy</b>는 '나'의 상태를 답할 때 변형되는 estar 동사입니다!",
+        patterns: [
+          { es: "Estoy bien.", ko: "난 잘 지내. (상태)" },
+          { es: "Estoy muy bien.", ko: "난 아주 잘 지내. (강조)" },
+          { es: "Estoy cansado.", ko: "난 피곤한 상태야." },
+          { es: "Estoy listo.", ko: "난 준비된 상태야." }
+        ],
+        dialogue: [
+          { speaker: "A", es: "¡Hola! ¿Cómo estás?", ko: "안녕! 어떻게 지내?" },
+          { speaker: "B", es: "Estoy bien, gracias. ¿Y tú?", ko: "잘 지내, 고마워. 너는?", target: true },
+          { speaker: "A", es: "Muy bien, gracias.", ko: "매우 잘 지내, 고마워." }
+        ],
+        items: [
+          { es: "¿Cómo estás?", ko: "어떻게 지내? (통구문)", isPhrase: true },
+          { es: "Estoy bien", ko: "잘 지내 (통구문)", isPhrase: true },
+          { es: "Muy bien", ko: "매우 좋아 (통구문)", isPhrase: true },
+          { es: "Hola", ko: "안녕" },
+          { es: "gracias", ko: "고마워" }
+        ]
+      },
+      3: {
+        title: "Mucho gusto.",
+        concept: "새로운 사람을 만났을 때 나누는 인사말입니다. <b>Mucho gusto</b>는 '큰 기쁨'이라는 뜻으로 '만나서 반갑습니다'의 의미가 됩니다.",
+        tip: "상대방이 Mucho gusto라고 말했을 때는 <b>Igualmente (마찬가지입니다/저도요)</b>라고 대답하면 센스 만점입니다!",
+        patterns: [
+          { es: "Mucho gusto.", ko: "만나서 반가워요." },
+          { es: "Igualmente.", ko: "저도 반가워요." },
+          { es: "Encantado.", ko: "만나서 기뻐요 (남성 대답)." },
+          { es: "Encantada.", ko: "만나서 기뻐요 (여성 대답)." }
+        ],
+        dialogue: [
+          { speaker: "A", es: "Soy Carlos. Mucho gusto.", ko: "난 카를로스야. 만나서 반가워.", target: true },
+          { speaker: "B", es: "Igualmente, soy Ana.", ko: "나도 반가워, 난 아나야." }
+        ],
+        items: [
+          { es: "Mucho gusto", ko: "만나서 반가워 (통구문)", isPhrase: true },
+          { es: "Igualmente", ko: "마찬가지야/나도 (통구문)", isPhrase: true },
+          { es: "mucho", ko: "많이" },
+          { es: "gusto", ko: "기쁨" }
+        ]
+      },
+      4: {
+        title: "Hasta luego.",
+        concept: "<b>Hasta</b>는 '~까지'라는 전치사입니다. 뒤에 시간/상황 단어를 붙여서 다양한 작별 인사를 만들 수 있습니다.",
+        tip: "<b>Hasta luego</b>는 '나중에 볼 때까지', <b>Hasta mañana</b>는 '내일 볼 때까지'라는 뜻입니다!",
+        patterns: [
+          { es: "Hasta luego.", ko: "나중에 봐! (일반적인 작별)" },
+          { es: "Hasta mañana.", ko: "내일 봐!" },
+          { es: "Hasta pronto.", ko: "곧 또 보자!" },
+          { es: "Tengo que irme.", ko: "나 가봐야 해." }
+        ],
+        dialogue: [
+          { speaker: "A", es: "Tengo que irme. ¡Adiós!", ko: "나 가봐야 해. 안녕!" },
+          { speaker: "B", es: "¡Hasta luego! Cuídate.", ko: "나중에 봐! 잘 지내.", target: true }
+        ],
+        items: [
+          { es: "Tengo que ~", ko: "~해야 한다 (통구문)", isPhrase: true },
+          { es: "Hasta luego", ko: "나중에 봐 (통구문)", isPhrase: true },
+          { es: "Cuídate", ko: "몸 조심해 (통구문)", isPhrase: true },
+          { es: "Adiós", ko: "잘 가" }
+        ]
+      },
+      5: {
+        title: "Por favor.",
+        concept: "영어의 'Please'에 해당하는 대표 정중 표현입니다. 스페인어에서는 어떤 단어나 요청 뒤에 <b>por favor</b>만 붙이면 예의 바른 요청이 됩니다.",
+        tip: "카페나 식당에서 명사 단어 뒤에 por favor만 붙여 주문해보세요! (Un café, por favor)",
+        patterns: [
+          { es: "Por favor.", ko: "부탁합니다 / 제발." },
+          { es: "Un café, por favor.", ko: "커피 한 잔 부탁합니다." },
+          { es: "La cuenta, por favor.", ko: "계산서 부탁합니다." },
+          { es: "Un agua, por favor.", ko: "물 한 잔 부탁합니다." }
+        ],
+        dialogue: [
+          { speaker: "A", es: "¡Hola! ¿Qué desea?", ko: "안녕하세요! 무엇을 드릴까요?" },
+          { speaker: "B", es: "Un café, por favor.", ko: "커피 한 잔 부탁해요.", target: true }
+        ],
+        items: [
+          { es: "Por favor", ko: "부탁합니다 (통구문)", isPhrase: true },
+          { es: "¿Qué desea?", ko: "무엇을 원하시나요? (통구문)", isPhrase: true },
+          { es: "café", ko: "커피" },
+          { es: "un", ko: "하나의" }
+        ]
+      }
+    };
+
+    // Fill missing days up to Day 30 with fallback templates
+    for (let d = 6; d <= 30; d++) {
+      if (!lessonsData[d]) {
+        lessonsData[d] = {
+          title: "Day " + d + " 스페인어 표현",
+          concept: "Day " + d + "의 핵심 문법 및 상황 패턴을 익히는 단계입니다. 기본 문형의 구조를 이해해보세요.",
+          tip: "문장 속에서 자주 쓰이는 핵심 단어를 중심으로 어순 감각을 익히는 것이 중요합니다!",
+          patterns: [
+            { es: "Hablo español un poco.", ko: "스페인어를 조금 해요." },
+            { es: "Me gusta mucho.", ko: "아주 마음에 들어요." },
+            { es: "Voy al centro.", ko: "시내에 가는 길이에요." }
+          ],
+          dialogue: [
+            { speaker: "A", es: "¡Hola! ¿Cómo estás hoy?", ko: "안녕! 오늘 어때?" },
+            { speaker: "B", es: "Muy bien, practicando español.", ko: "아주 좋아, 스페인어 연습 중이야.", target: true }
+          ],
+          items: [
+            { es: "Practicando", ko: "연습하는 중" },
+            { es: "español", ko: "스페인어" }
+          ]
+        };
+      }
+    }
+
+    let currentDay = 1;
+    let currentStep = 1;
+    let audioSpeed = 1.0;
+    let currentPuzzleIndex = 0;
+    let selectedWordChips = [];
+
+    let currentDate = new Date();
+    let currentYear = currentDate.getFullYear();
+    let currentMonth = currentDate.getMonth();
+    let attendanceRecords = JSON.parse(localStorage.getItem('vamos_attendance')) || {};
+
+    function getLocalDateString(dateObj = new Date()) {
+      const year = dateObj.getFullYear();
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const day = String(dateObj.getDate()).padStart(2, '0');
+      return year + '-' + month + '-' + day;
+    }
+
+    window.onload = () => {
+      initDayDropdown();
+      loadDayContent(currentDay);
+      renderCalendar();
+      updateStreakDisplay();
+    };
+
+    function initDayDropdown() {
+      const select = document.getElementById('daySelect');
+      select.innerHTML = '';
+      for (let i = 1; i <= 30; i++) {
+        select.innerHTML += '<option value="' + i + '">Day ' + i + '</option>';
+      }
+    }
+
+    function changeDay(dayNum) {
+      currentDay = parseInt(dayNum);
+      loadDayContent(currentDay);
+      switchStep(1);
+    }
+
+    function loadDayContent(day) {
+      const data = lessonsData[day] || lessonsData[1];
+      
+      // Step 1: Blurred Dialogue
+      const blurredBox = document.getElementById('blurredDialogueBox');
+      blurredBox.classList.remove('revealed');
+      let blurredHtml = '';
+      data.dialogue.forEach(item => {
+        blurredHtml += '<div class="dialogue-unit ' + (item.target ? 'highlight' : '') + '">';
+        blurredHtml += '<span class="speaker-tag speaker-' + item.speaker.toLowerCase() + '">Person ' + item.speaker + '</span>';
+        blurredHtml += '<div class="es-text">' + item.es + '</div>';
+        blurredHtml += '<div class="ko-text">' + item.ko + '</div>';
+        blurredHtml += '</div>';
+      });
+      blurredBox.innerHTML = blurredHtml;
+
+      // Step 2: Concept, Tip & Pattern Extension
+      document.getElementById('step2ConceptText').innerHTML = data.concept;
+      document.getElementById('step2TipText').innerHTML = data.tip;
+
+      const patternBox = document.getElementById('step2PatternList');
+      let patternHtml = '';
+      if (data.patterns && data.patterns.length > 0) {
+        data.patterns.forEach(p => {
+          const safeEs = p.es.replace(/'/g, "\\'");
+          patternHtml += '<div class="pattern-item">';
+          patternHtml += '<div><div class="pattern-text-es">' + p.es + '</div><div class="pattern-text-ko">' + p.ko + '</div></div>';
+          patternHtml += '<button class="btn-circle" style="width:34px; height:34px;" onclick="speakText(\'' + safeEs + '\')"><i class="fa-solid fa-volume-high"></i></button>';
+          patternHtml += '</div>';
+        });
+      }
+      patternBox.innerHTML = patternHtml;
+
+      // Step 3: Summary & Vocab List
+      document.getElementById('step3ContextSummary').innerHTML = "오늘 배운 문법 원리가 녹아있는 핵심 대화 단어와 통구문을 뜯어보세요!";
+      const vocabList = document.getElementById('step3VocabList');
+      let vocabHtml = '';
+      if (data.items && data.items.length > 0) {
+        data.items.forEach(v => {
+          const safeEs = v.es.replace(/'/g, "\\'");
+          vocabHtml += '<div class="vocab-card-item ' + (v.isPhrase ? 'phrase' : '') + '">';
+          vocabHtml += '<div class="vocab-info">';
+          vocabHtml += '<div class="vocab-es-text">' + v.es + '</div>';
+          vocabHtml += '<div class="vocab-ko-text">' + v.ko + '</div>';
+          vocabHtml += '</div>';
+          vocabHtml += '<button class="btn-circle" style="width:34px; height:34px;" onclick="speakText(\'' + safeEs + '\')"><i class="fa-solid fa-volume-high"></i></button>';
+          vocabHtml += '</div>';
+        });
+      }
+      vocabList.innerHTML = vocabHtml;
+
+      // Step 4: Speaking Lines
+      const lineContainer = document.getElementById('linePracticeContainer');
+      let lineHtml = '';
+      data.dialogue.forEach((item, idx) => {
+        const safeEs = item.es.replace(/'/g, "\\'");
+        lineHtml += '<div class="line-practice-item">';
+        lineHtml += '<div><div class="es-text" style="font-size:1.05rem;">' + item.es + '</div><div class="ko-text">' + item.ko + '</div></div>';
+        lineHtml += '<div class="line-controls">';
+        lineHtml += '<button class="btn-circle" onclick="speakText(\'' + safeEs + '\')"><i class="fa-solid fa-volume-high"></i></button>';
+        lineHtml += '<button class="btn-circle btn-mic" id="micBtn_' + idx + '" onclick="startRecognition(\'' + safeEs + '\', ' + idx + ')"><i class="fa-solid fa-microphone"></i></button>';
+        lineHtml += '<div class="speech-result" id="speechResult_' + idx + '"></div>';
+        lineHtml += '</div></div>';
+      });
+      lineContainer.innerHTML = lineHtml;
+
+      // Step 5: Puzzle
+      currentPuzzleIndex = 0;
+      loadPuzzleLine();
+    }
+
+    function switchStep(stepNum) {
+      currentStep = stepNum;
+      document.querySelectorAll('.step-item').forEach((item, idx) => {
+        item.classList.toggle('active', idx + 1 === stepNum);
+      });
+      document.querySelectorAll('.step-panel').forEach((panel, idx) => {
+        panel.classList.toggle('active', idx + 1 === stepNum);
+      });
+    }
+
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-ES';
+        utterance.rate = audioSpeed;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    function playFullDialogue() {
+      const data = lessonsData[currentDay] || lessonsData[1];
+      let delay = 0;
+      data.dialogue.forEach(line => {
+        setTimeout(() => {
+          speakText(line.es);
+        }, delay);
+        delay += 2200;
+      });
+    }
+
+    function setSpeed(speed, btn) {
+      audioSpeed = speed;
+      document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function toggleBlur() {
+      document.getElementById('blurredDialogueBox').classList.toggle('revealed');
+    }
+
+    function startRecognition(targetText, idx) {
+      const micBtn = document.getElementById('micBtn_' + idx);
+      const resultDiv = document.getElementById('speechResult_' + idx);
+
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert("이 브라우저는 음성 인식을 지원하지 않습니다. Chrome을 사용해주세요.");
+        return;
+      }
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'es-ES';
+
+      micBtn.classList.add('recording');
+      resultDiv.innerText = "듣고 있어요...";
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        micBtn.classList.remove('recording');
+        resultDiv.innerText = '인식 결과: "' + transcript + '"';
+      };
+
+      recognition.onerror = () => {
+        micBtn.classList.remove('recording');
+        resultDiv.innerText = "다시 시도해주세요.";
+      };
+
+      recognition.start();
+    }
+
+    function loadPuzzleLine() {
+      const data = lessonsData[currentDay] || lessonsData[1];
+      const currentLine = data.dialogue[currentPuzzleIndex];
+      
+      document.getElementById('puzzleCurrentIndex').innerText = currentPuzzleIndex + 1;
+      document.getElementById('puzzleTotalIndex').innerText = data.dialogue.length;
+      document.getElementById('puzzleKoreanHint').innerText = currentLine.ko;
+      document.getElementById('puzzleFeedback').className = 'feedback-box';
+
+      selectedWordChips = [];
+      renderPuzzleChips();
+    }
+
+    function renderPuzzleChips() {
+      const data = lessonsData[currentDay] || lessonsData[1];
+      const currentLine = data.dialogue[currentPuzzleIndex];
+      
+      const rawWords = currentLine.es.split(' ');
+      const scrambledWords = [...rawWords].sort(() => Math.random() - 0.5);
+
+      let targetHtml = '';
+      selectedWordChips.forEach((word, idx) => {
+        targetHtml += '<div class="word-chip selected" onclick="deselectChip(' + idx + ')">' + word + '</div>';
+      });
+      document.getElementById('targetDropzone').innerHTML = targetHtml;
+
+      let poolHtml = '';
+      scrambledWords.forEach(word => {
+        const safeWord = word.replace(/'/g, "\\'");
+        poolHtml += '<div class="word-chip" onclick="selectChip(\'' + safeWord + '\')">' + word + '</div>';
+      });
+      document.getElementById('wordPool').innerHTML = poolHtml;
+    }
+
+    function selectChip(word) {
+      selectedWordChips.push(word);
+      renderPuzzleChips();
+    }
+
+    function deselectChip(index) {
+      selectedWordChips.splice(index, 1);
+      renderPuzzleChips();
+    }
+
+    function resetPuzzleLine() {
+      selectedWordChips = [];
+      renderPuzzleChips();
+    }
+
+    function playPuzzleLineAudio() {
+      const data = lessonsData[currentDay] || lessonsData[1];
+      speakText(data.dialogue[currentPuzzleIndex].es);
+    }
+
+    function checkPuzzleAnswer() {
+      const data = lessonsData[currentDay] || lessonsData[1];
+      const currentLine = data.dialogue[currentPuzzleIndex];
+      const userAnswer = selectedWordChips.join(' ').trim();
+      const correctAnswer = currentLine.es.trim();
+
+      const feedback = document.getElementById('puzzleFeedback');
+
+      if (userAnswer === correctAnswer) {
+        feedback.className = 'feedback-box correct';
+        feedback.innerText = '¡Excelente! 정답입니다!';
+        speakText(correctAnswer);
+
+        setTimeout(() => {
+          if (currentPuzzleIndex < data.dialogue.length - 1) {
+            currentPuzzleIndex++;
+            loadPuzzleLine();
+          } else {
+            switchStep(6);
+          }
+        }, 1500);
+      } else {
+        feedback.className = 'feedback-box wrong';
+        feedback.innerText = '다시 순서를 맞춰보세요!';
+      }
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendarGrid');
+      const monthLabel = document.getElementById('calendarMonthLabel');
+      monthLabel.innerText = currentYear + '년 ' + (currentMonth + 1) + '월';
+
+      grid.innerHTML = '<div class="calendar-day-head">일</div><div class="calendar-day-head">월</div><div class="calendar-day-head">화</div><div class="calendar-day-head">수</div><div class="calendar-day-head">목</div><div class="calendar-day-head">금</div><div class="calendar-day-head">토</div>';
+
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+      for (let i = 0; i < firstDay; i++) {
+        grid.innerHTML += '<div></div>';
+      }
+
+      const todayStr = getLocalDateString();
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateKey = currentYear + '-' + String(currentMonth + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+        const isToday = dateKey === todayStr;
+        const isStamped = attendanceRecords[dateKey];
+
+        grid.innerHTML += '<div class="calendar-cell ' + (isToday ? 'today' : '') + ' ' + (isStamped ? 'stamped' : '') + '">' + d + '</div>';
+      }
+    }
+
+    function changeMonth(delta) {
+      currentMonth += delta;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      } else if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      renderCalendar();
+    }
+
+    function markAttendanceToday() {
+      const todayStr = getLocalDateString();
+      attendanceRecords[todayStr] = true;
+      localStorage.setItem('vamos_attendance', JSON.stringify(attendanceRecords));
+      renderCalendar();
+      updateStreakDisplay();
+      alert("오늘의 출석 도장이 성공적으로 찍혔습니다! 🔥");
+    }
+
+    function updateStreakDisplay() {
+      const totalDays = Object.keys(attendanceRecords).length;
+      document.getElementById('streakCount').innerText = totalDays;
+      document.getElementById('modalStreakCount').innerText = totalDays + '일';
+      document.getElementById('modalTotalDays').innerText = totalDays + '일';
+    }
+
+    function openCalendarModal() {
+      document.getElementById('calendarModal').classList.add('active');
+    }
+
+    function closeCalendarModal() {
+      document.getElementById('calendarModal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>
